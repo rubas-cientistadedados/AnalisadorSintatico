@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analisador Sintático</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="js/grammar.js"></script>
+    <script src="js/analiser.js"></script>
+    <script src="js/actions.js"></script>
+</head>
+
+<body>
+    <nav class="navbar center">
+        <h2 class="navbar-brand center">Analisador Sintático </h2>
+    </nav>
+    <div class="container">
+            <div class="adjust-margin-top">
+            <div class="row mb-2">
+                <div class="col-sm-4">
+                    <h4>GRAMÁTICA</h4>
+                    <hr class="border-hr2"> 
+                    <div style="font-family: monospace">
+                        S ::= cBb | CB
+                        <br> A ::= bBc | a
+                        <br> B ::= dA&nbsp; | aC | &epsilon;
+                        <br> C ::= bA&nbsp; | aBb
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <h4>FIRST</h4>
+                    <hr class="border-hr2"> 
+                    <div style="font-family: monospace">
+                        S ::= { a, b, c }
+                        <br> A ::= { a, b }
+                        <br> B ::= { a, d, &epsilon; }
+                        <br> C ::= { a, b }
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h4>FOLLOW</h4>
+                    <hr class="border-hr2"> 
+                    <div style="font-family: monospace">
+                        S ::= { $ }
+                        <br> A ::= { a, b, c, d, $ }
+                        <br> B ::= { b, c, $ }
+                        <br> C ::= { a, b, c, d, $ }
+                    </div>
+                </div>
+            </div>
+
+            <div class="margin-table">
+            
+                <h4>TABELA DE PARSER</h4>
+                <hr class="border-hr2"> 
+                <table class="table table-bordered">
+                    <thead class="bg-style-table">
+                        <tr>
+                            <th></th>
+                            <th>a</th>
+                            <th>b</th>
+                            <th>c</th>
+                            <th>d</th>
+                            <th>$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="bg-style-table">S</th>
+                            <td>S ::= CB</td>
+                            <td>S ::= CB</td>
+                            <td>S ::= cBb</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-style-table">A</th>
+                            <td>A ::= a</td>
+                            <td>A ::= bBc</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-style-table">B</th>
+                            <td>B ::= aC</td>
+                            <td>B ::= &epsilon;</td>
+                            <td>B ::= &epsilon;</td>
+                            <td>B ::= dA</td>
+                            <td>B ::= &epsilon;</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-style-table">C</th>
+                            <td>C ::= aBb</td>
+                            <td>C ::= bA</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="margin-table">
+            
+            <h4>ANÁLISE DE SENTENÇA</h4>
+            <hr class="border-hr2"> 
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-10 adjust-margin center">
+                    <div class="form-inline form-group-sm center">
+                        <div class="input-group col-10">
+                            <input type="text" class="form-control" placeholder="Digite aqui..." id="input-sentence">
+                            <div class="input-group-append">
+                                <button class="btn rounded-right" type="button" id="btn-clean" title="Limpar">&times;</button>
+                            </div>
+                        <div>
+                        <button class="btn bg-color-padrao ml-3" type="button" id="btn-verify-sentence">Verificar</button>    
+                        <button class="btn btn-info ml-2" type="button" id="btn-generate">Gerar</button>
+                    </div>
+                </div>
+                <div  class="col-10 adjust-margin margin-iteracao">
+                    <table class="table table-sm table-bordered debug-table">
+                        <thead class="bg-style-table">
+                            <tr>
+                                <th>Pilha</th>
+                                <th>Entrada</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="lugar">
+                    <button class="btn btn-info" type="button" id="btn-verify-step">Passo a Passo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
