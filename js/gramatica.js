@@ -1,14 +1,15 @@
 const EPSILON = '&';
 const END_OF_STACK = '$';
 
-const TERMINALS = ['a', 'b', 'c', 'd'];
-const NON_TERMINALS = ['S', 'A', 'B', 'C'];
+const TERMINALS = ['a', 'b', 'c', 'd', 'e'];
+const NON_TERMINALS = ['S', 'A', 'B', 'C', 'D'];
 
 var grammar = {
     'S': ['AC', 'aB' ],
     'A': ['bB', 'aS' ],
     'B': ['cCa', 'AB'],
-    'C': ['Bc', 'bCa', EPSILON]
+    'C': ['Bc', 'bCa', EPSILON],
+    'D': []
 };
 
 var parsingTable = {
