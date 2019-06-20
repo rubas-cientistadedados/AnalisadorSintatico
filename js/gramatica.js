@@ -5,31 +5,42 @@ const TERMINALS = ['a', 'b', 'c', 'd', 'e'];
 const NON_TERMINALS = ['S', 'A', 'B', 'C', 'D'];
 
 var grammar = {
-    'S': ['AC', 'aB' ],
-    'A': ['bB', 'aS' ],
-    'B': ['cCa', 'AB'],
-    'C': ['Bc', 'bCa', EPSILON],
-    'D': []
+    'S': ['Ae', 'aD'],
+    'A': ['cC', 'dD', 'b'],
+    'B': ['a', 'cCb', EPSILON],
+    'C': ['De', 'aAe'],
+    'D': ['ABd', 'eCc', 'c']
 };
 
 var parsingTable = {
     'S': {
-        'a': ['a', 'B'],
-        'b': ['A', 'C'],
+        'a': ['a', 'D'],
+        'b': ['A', 'e'],
+        'c': ['A', 'e'],
+        'd': ['A', 'e'],
     },
     'A': {
-        'a': ['a', 'S'],
-        'b': ['b', 'B']
+        'b': ['b'],
+        'c': ['c', 'C'],
+        'd': ['d', 'D']
     },
     'B': {
         'a': ['a'],
-        'b': ['A', 'B'],
-        'c': ['c', 'C', 'a'],
+        'c': ['c', 'C', 'b'],
+        'd': [EPSILON],
+        '$': [EPSILON]
     },
     'C': {
-        'a': [EPSILON],
-        'b': ['b', 'A', 'a'],
-        'c': ['B', 'c'],
-        '$': [EPSILON]
+        'a': ['a', 'A', 'e'],
+        'b': ['D', 'e'],
+        'c': ['D', 'e'],
+        'd': ['D', 'e'],
+        'e': ['D', 'e']
+    },
+    'D': {
+        'b': ['A','B', 'd'],
+        'c': ['c'],
+        'd': ['A', 'B', 'd'],
+        'e': ['e', 'C', 'c']
     }
 };
