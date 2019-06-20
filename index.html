@@ -45,7 +45,7 @@
                     <div style="font-family: monospace">
                         S ::= { a, b, c, d }
                         <br> A ::= { b, c, d }
-                        <br> B ::= { a, c, &epsilon;}
+                        <br> B ::= { a, c, &epsilon; }
                         <br> C ::= { a, b, c, d, e }
                         <br> D ::= { b, c, d, e }
                     </div>
@@ -58,7 +58,7 @@
                         <br> A ::= { a, c, e }
                         <br> B ::= { d }
                         <br> C ::= { b, c }
-                        <br> D ::= {a, c, e, $}
+                        <br> D ::= {a, c, e, $ }
                     </div>
                 </div>
             </div>
@@ -82,47 +82,47 @@
                     <tbody>
                         <tr>
                             <th class="bg-style-table">S</th>
-                            <td>S ::= aD</td>
-                            <td>S ::= Ae</td>
-                            <td>S ::= Ae</td>
-                            <td>S ::= Ae</td>
+                            <td>S → aD</td>
+                            <td>S → Ae</td>
+                            <td>S → Ae</td>
+                            <td>S → Ae</td>
                             <td>&ndash;</td>
                             <td>&ndash;</td>
                         </tr>
                         <tr>
                             <th class="bg-style-table">A</th>
                             <td>&ndash;</td>
-                            <td>A ::= b</td>
-                            <td>A ::= cC</td>
-                            <td>A ::= dD</td>
+                            <td>A → b</td>
+                            <td>A → cC</td>
+                            <td>A → dD</td>
                             <td>&ndash;</td>
                             <td>&ndash;</td>
                         </tr>
                         <tr>
                             <th class="bg-style-table">B</th>
-                            <td>B ::= a</td>
+                            <td>B → a</td>
                             <td>&ndash;</td>
-                            <td>B ::= cCb</td>
-                            <td>B ::= &epsilon;</td>
+                            <td>B → cCb</td>
+                            <td>B → &epsilon;</td>
                             <td>&ndash;</td>
-                            <td>B ::= &epsilon;</td>
+                            <td>B → &epsilon;</td>
                         </tr>
                         <tr>
                             <th class="bg-style-table">C</th>
-                            <td>C ::= aAe</td>
-                            <td>C ::= De</td>
-                            <td>C ::= De</td>
-                            <td>C ::= De</td>
-                            <td>C ::= De</td>
+                            <td>C → aAe</td>
+                            <td>C → De</td>
+                            <td>C → De</td>
+                            <td>C → De</td>
+                            <td>C → De</td>
                             <td>&ndash;</td>
                         </tr>
                         <tr>
                             <th class="bg-style-table">D</th>
                             <td>&ndash;</td>
-                            <td>D ::= ABd</td>
-                            <td>D ::= c</td>
-                            <td>D ::= ABd</td>
-                            <td>D ::= eCc</td>
+                            <td>D → ABd</td>
+                            <td>D → c</td>
+                            <td>D → ABd</td>
+                            <td>D → eCc</td>
                             <td>&ndash;</td>
                         </tr>
                     </tbody>
