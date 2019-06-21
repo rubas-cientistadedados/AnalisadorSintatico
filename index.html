@@ -22,7 +22,7 @@
         <h2 class="navbar-brand center">Analisador Sintático </h2>
     </nav>
     <div class="container">
-            <div class="adjust-margin-top">
+        <div class="adjust-margin-top">
             <div class="row mb-2 p-2">
                 <div class=" quadro col-sm-4">
                     <h4>GRAMÁTICA</h4>
@@ -125,7 +125,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
 
         <div class="margin-table">
@@ -133,21 +132,17 @@
             <h4>ANÁLISE DE SENTENÇA</h4>
             <hr class="border-hr2"> 
             <div class="row">
-                <div class="col-2">
-                </div>
-                <div class="col-10 adjust-margin center">
+                <div class="col-10 offset-md-2">
                     <div class="form-inline form-group-sm center">
                         <div class="input-group col-10">
-                            <input type="text" class="form-control rounded-pill" placeholder="Digite aqui..." id="input-sentence">
-                            <div class="input-group-append">
-                                <button class="btn rounded-right" type="button" id="btn-clean" title="Limpar">&times;</button>
-                            </div>
+                            <input type="text" class="form-control rounded-pill clearable" placeholder="Digite a gramática" id="input-sentence">
                         <div>
-                        <button class="btn bg-color-padrao ml-3" type="button" id="btn-verify-sentence">Verificar</button>    
-                        <button class="btn btn-info ml-2" type="button" id="btn-generate">Gerar</button>
+                        <button class="btn bg-color-padrao ml-3 rounded-pill" type="button" id="btn-verify-sentence">Verificar</button>    
+                        <button class="btn btn-info ml-2 rounded-pill" type="button" id="btn-generate">Gerar</button>
                     </div>
                 </div>
-                <div  class="col-10 adjust-margin margin-iteracao">
+
+                <div  class="col-10 margin-iteracao">
                     <table class="table table-sm table-bordered debug-table">
                         <thead class="bg-style-table">
                             <tr>
@@ -162,7 +157,8 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button class="btn order-0 btn-info float-right" type="button" id="btn-verify-step">Passo a Passo</button>
+                    <button class="btn order-0 btn-info rounded-pill" type="button" id="btn-verify-step">Passo a Passo</button>
+                    <button class="btn rounded-right invisible rounded-pill" type="button" id="btn-clean" title="Limpar">&times;</button>
                 </div>
             </div>
         </div>

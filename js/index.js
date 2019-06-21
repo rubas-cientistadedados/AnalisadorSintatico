@@ -23,6 +23,9 @@ $(document).ready(function () {
     $('#btn-verify-sentence').click(function() {
         var analisis = oneStepAnalisis($('#input-sentence').val());
         updateView(analisis);
+        $("html, body").animate({ 
+            transitionDelay: 10, 
+            scrollTop: $(document).height()}, 7000);
     });
 
     /**
@@ -38,4 +41,18 @@ $(document).ready(function () {
         var sentence = randomSentence();
         $('#input-sentence').val(sentence);
     });
+});
+
+function tog(v){
+
+    return v ? 'addClass' : 'removeClass';
+} 
+
+$(document).on('input', '.clearable', function(){
+    $(this)[tog(this.value)]('x');
+}).on('mousemove', '.x', function( e ){
+    $(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
+}).on('touchstart click', '.onX', function( ev ){
+    ev.preventDefault();
+    $(this).removeClass('x onX').val('').change();
 });
