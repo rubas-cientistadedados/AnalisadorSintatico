@@ -38,7 +38,7 @@ input.is-valid {
 
 .border-hr2{
     border-color:#19a2b8;
-     margin-top: 1%;
+    margin-top: 1%;
 }
 
 .navbar{
@@ -119,4 +119,37 @@ h2 {
 
 table tbody tr td {
     text-align: center;
+}
+
+table {
+    border-radius: 7px;
+}
+
+.dradro{
+
+    transition: box-shadow 4s, transform 3s;
+    transition-delay: 4s, 0s;
+}
+
+.quadro:hover, .quadro:focus{
+
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, 0.8);
+    transition-delay: 0s, 4s;
+    border-radius: 15px;
+
+    transform: scale(1.2) scaleX(0.8);
+}
+.dradro-table{
+
+    transition: box-shadow 4s, transform 3s;
+    transition-delay: 4s, 0s;
+}
+
+.quadro-table:hover, .quadro-table:focus{
+
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, 0.7);
+    transition-delay: 0s, 1s;
+    border-radius: 15px;
+    
+    transform: scale(1.1) scaleX(1);
 }
