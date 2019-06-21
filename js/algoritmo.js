@@ -223,8 +223,10 @@ function acceptanceFeedback(accepted) {
 
 function updateView(analisis) {
     if (analisis === undefined) {
-        acceptanceFeedback(null);
-        writeDebugTable([]);
+        setTimeout(() => {
+            acceptanceFeedback(null);
+            writeDebugTable([]);
+        }, 1000);
     } else {
         acceptanceFeedback(analisis.accepted);
         writeDebugTable(analisis.table);

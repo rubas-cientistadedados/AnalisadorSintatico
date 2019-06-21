@@ -78,7 +78,7 @@ input.is-valid {
 }
 
 .row {
-    margin-top: 7%;
+    margin-top: 3%;
 }
 
 h1 {
@@ -94,8 +94,9 @@ table tbody tr td {
     text-align: center;
 }
 
-table {
-    border-radius: 7px;
+table tbody tr {
+ 
+    border-radius: 10px;
 }
 
 .quadro, .quadro-table {

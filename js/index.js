@@ -6,6 +6,9 @@ $(document).ready(function () {
     $('#input-sentence').on('keyup', function() {
         cleanGlobals();
         updateView();
+        
+        resultado.removeClass('disabled');
+        resultado.addClass('active');
     });
 
     /**
