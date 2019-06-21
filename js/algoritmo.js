@@ -111,6 +111,9 @@ function makeStep() {
         analising = false;
         accepted = true;
         debugRow.action = 'Aceito em ' + iteration + ' iterações';
+
+        $('#btn-verify-step').removeClass('active');
+        $('#btn-verify-step').addClass('disabled');
     } else {
         // se o topo da pilha for igual ao simbolo da entrada, lê a entrada
         if (topStack === inSimbol) {
@@ -147,6 +150,9 @@ function makeStep() {
             analising = false;
             accepted = false;
             debugRow.action = 'Erro em ' + iteration + ' iterações';
+            
+            $('#btn-verify-step').removeClass('active');
+            $('#btn-verify-step').addClass('disabled');
         }
     }
     // incrementa a iteração e coloca a linha gerada na tabela de derivação

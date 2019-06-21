@@ -18,11 +18,11 @@
 </head>
 
 <body>
-    <nav class="navbar center">
-        <h2 class="navbar-brand center">Analisador Sintático </h2>
+    <nav class="navbar">
+        <h1 class="center">Analisador Sintático </h1>
     </nav>
     <div class="container">
-        <div class="adjust-margin-top">
+        <div class="margin-top">
             <div class="row mb-2 p-2">
                 <div class=" quadro col-sm-4">
                     <h4>GRAMÁTICA</h4>
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="margin-table quadro-table">
+            <div class="margin-top quadro-table">
             
                 <h4>TABELA DE PARSER</h4>
                 <hr class="border-hr2"> 
@@ -127,12 +127,12 @@
             </div>
         </div>
 
-        <div class="margin-table">
+        <div class="margin-top">
             
             <h4>ANÁLISE DE SENTENÇA</h4>
             <hr class="border-hr2"> 
             <div class="row">
-                <div class="col-10 offset-md-2">
+                <div class="col-11 offset-md-1 center">
                     <div class="form-inline form-group-sm center">
                         <div class="input-group col-10">
                             <input type="text" class="form-control rounded-pill clearable" placeholder="Digite a gramática" id="input-sentence">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
 
-                <div  class="col-10 margin-iteracao">
+                <div  class="col-11 mt-4">
                     <table class="table table-sm table-bordered debug-table">
                         <thead class="bg-style-table">
                             <tr>
@@ -156,9 +156,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <button class="btn order-0 btn-info rounded-pill" type="button" id="btn-verify-step">Passo a Passo</button>
-                    <button class="btn rounded-right invisible rounded-pill" type="button" id="btn-clean" title="Limpar">&times;</button>
+                <div class="col-11 mt-3">
+                    <button class="btn ml-2 float-right bg-color-padrao rounded-pill" type="button" id="btn-verify-step">Passo a Passo</button>
+                    <button class="btn ml-2 float-right btn-info rounded-pill" type="button" id="btn-clean" title="Limpar"> Reiniciar</button>
                 </div>
             </div>
         </div>

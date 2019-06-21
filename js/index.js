@@ -20,20 +20,29 @@ $(document).ready(function () {
     /**
      * Análisa a sentença na entrada em um passo
      */
+
     $('#btn-verify-sentence').click(function() {
         var analisis = oneStepAnalisis($('#input-sentence').val());
         updateView(analisis);
         $("html, body").animate({ 
             transitionDelay: 10, 
-            scrollTop: $(document).height()}, 7000);
+            scrollTop: $(document).height()
+        }, 7000);
     });
 
     /**
      * Realiza a analise passo à passo
      */
+    
+    $('#btn-verify-step').removeClass('active');
     $('#btn-verify-step').click(function() {
+        
         var analisis = stepByStepAnalisis($('#input-sentence').val());
         updateView(analisis);
+        $("html, body").animate({ 
+            transitionDelay: 10, 
+            scrollTop: $(document).height()
+        }, 1000);
     });
 
     $('#btn-generate').click(function() {
