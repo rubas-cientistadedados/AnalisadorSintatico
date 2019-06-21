@@ -13,8 +13,12 @@ $(document).ready(function () {
      */
     $('#btn-clean').click(function() {
         $('#input-sentence').val('').focus();
+        $('html, body').css('transition-delay', '0s, 5s');
         cleanGlobals();
         updateView();
+
+        resultado.removeClass('disabled');
+        resultado.addClass('active');        
     });
 
     /**
@@ -24,25 +28,29 @@ $(document).ready(function () {
     $('#btn-verify-sentence').click(function() {
         var analisis = oneStepAnalisis($('#input-sentence').val());
         updateView(analisis);
-        $("html, body").animate({ 
-            transitionDelay: 10, 
+        $("html, body").animate({
             scrollTop: $(document).height()
         }, 7000);
+
+        resultado.removeClass('active');
+        resultado.addClass('disabled');
     });
 
     /**
      * Realiza a analise passo à passo
      */
-    
-    $('#btn-verify-step').removeClass('active');
-    $('#btn-verify-step').click(function() {
+    let resultado = $('#btn-verify-step'); 
+    resultado.addClass('active');
+
+    $('#btn-verify-step').click(() => {
         
-        var analisis = stepByStepAnalisis($('#input-sentence').val());
-        updateView(analisis);
-        $("html, body").animate({ 
-            transitionDelay: 10, 
-            scrollTop: $(document).height()
-        }, 1000);
+        if(!resultado.hasClass('disabled')){
+            var analisis = stepByStepAnalisis($('#input-sentence').val());
+            updateView(analisis);
+            $("html, body").animate({
+                scrollTop: $(document).height()
+            }, 1000);
+        }
     });
 
     $('#btn-generate').click(function() {
@@ -50,6 +58,8 @@ $(document).ready(function () {
         var sentence = randomSentence();
         $('#input-sentence').val(sentence);
     });
+    resultado.removeClass('disabled');
+    resultado.addClass('active');
 });
 
 function tog(v){

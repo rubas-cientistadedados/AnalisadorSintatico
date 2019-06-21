@@ -133,7 +133,7 @@ function makeStep() {
             var production = toStack.join('');
 
             // adiciona a ação atual na tabela de derivação
-            debugRow.action = topStack + ' -> ' + production;
+            debugRow.action = topStack + ' → ' + production;
 
             // remove o topo da pilha
             stack.pop();
