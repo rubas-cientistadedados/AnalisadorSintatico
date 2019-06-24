@@ -1,4 +1,4 @@
-const EPSILON = '&';
+const EPSILON = 'ε';
 const END_OF_STACK = '$';
 
 const TERMINALS = ['a', 'b', 'c', 'd', 'e'];
@@ -9,7 +9,7 @@ var grammar = {
     'A': ['cC', 'dD', 'b'],
     'B': ['a', 'cCb', EPSILON],
     'C': ['De', 'aAe'],
-    'D': ['ABd', 'eCc', 'c']
+    'D': ['ABd', 'eCc']
 };
 
 var parsingTable = {
@@ -38,8 +38,8 @@ var parsingTable = {
         'e': ['D', 'e']
     },
     'D': {
-        'b': ['A','B', 'd'],
-        'c': ['c'],
+        'b': ['A', 'B', 'd'],
+        'c': ['A', 'B', 'd'],
         'd': ['A', 'B', 'd'],
         'e': ['e', 'C', 'c']
     }

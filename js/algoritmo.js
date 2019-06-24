@@ -1,81 +1,98 @@
-/**
- * Entrada em string 
- */
-var stringInputOk = 'cdbabacb';
-var stringInputError = 'cdbabacccadcb';
 
-/**
- * Input convertido para array
- */
-var input = [];
+const EPSILON = 'ε';
+const FIM_DE_PILHA = '$';
 
-/**
- * Pilha de análise
- */
-var stack = [END_OF_STACK, 'S'];
+const TERMINAIS = ['a', 'b', 'c', 'd', 'e'];
+const NAO_TERMINAIS = ['S', 'A', 'B', 'C', 'D'];
 
-/**
- * Tabela de derivação
- */
-var debugTable = [];
 
-/**
- * Booleano que define se a análise continuará
- */
-var analising = true;
+var entradadeDados = [];
+var pilhadeAnalise = [FIM_DE_PILHA, 'S'];
+var tabeladeDerivacao = [];
 
-/**
- * Booleano que define se a sentença foi aceita ou não, 
- * default NULO
- * 
- * @type {boolean}
- */
-var accepted = null;
-
-/**
- * Número de iterações
- */
+var ehAnalisar = true;
+var ehGramativaAceita = null;
 var iteration = 1;
 
-// console.log(input, stack);
+var gramatica = {
+    'S': ['Ae', 'aD'],
+    'A': ['cC', 'dD', 'b'],
+    'B': ['a', 'cCb', EPSILON],
+    'C': ['De', 'aAe'],
+    'D': ['ABd', 'eCc']
+};
 
-function cleanGlobals() {
-    stack = [END_OF_STACK, 'S'];
-    input = [];
-    analising = true;
-    accepted = null;
-    debugTable = [];
+var tabelaParser = {
+    'S': {
+        'a': ['a', 'D'],
+        'b': ['A', 'e'],
+        'c': ['A', 'e'],
+        'd': ['A', 'e'],
+    },
+    'A': {
+        'b': ['b'],
+        'c': ['c', 'C'],
+        'd': ['d', 'D']
+    },
+    'B': {
+        'a': ['a'],
+        'c': ['c', 'C', 'b'],
+        'd': [EPSILON],
+        '$': [EPSILON]
+    },
+    'C': {
+        'a': ['a', 'A', 'e'],
+        'b': ['D', 'e'],
+        'c': ['D', 'e'],
+        'd': ['D', 'e'],
+        'e': ['D', 'e']
+    },
+    'D': {
+        'b': ['A', 'B', 'd'],
+        'c': ['A', 'B', 'd'],
+        'd': ['A', 'B', 'd'],
+        'e': ['e', 'C', 'c']
+    }
+};
+
+function reinicia() {
+    pilhadeAnalise = [FIM_DE_PILHA, 'S'];
+    entradadeDados = [];
+    ehAnalisar = true;
+    ehGramativaAceita = null;
+    tabeladeDerivacao = [];
     iteration = 1;
 }
 
-function analisisState() {
+function estadodaAnalise() {
     return {
-        input: input.join(''),
-        stack: stack.join(''),
-        accepted: accepted,
-        table: debugTable
+        entradadeDados: entradadeDados.join(''),
+        pilhadeAnalise: pilhadeAnalise.join(''),
+        ehGramativaAceita: ehGramativaAceita,
+        tabela: tabeladeDerivacao
     };
 }
 
-function randomSentence() {
-    var rule = 'S';
+function geraSentenca() {
+    var inicial = 'S';
     var generating = true;
     var sentence = '';
     while (generating) {
-        var ruleLength = grammar[rule].length;
-        var production = grammar[rule][Math.floor(Math.random() * ruleLength)];
+        var ruleLength = gramatica[inicial].length;
+        var production = gramatica[inicial][Math.floor(Math.random() * ruleLength)];
         if (sentence === '') {
             sentence = production;
         } else {
-            sentence = sentence.replace(rule, production);
+            sentence = sentence.replace(inicial, production);
         }
         var ruleIndex = -1;
         for (var i = 0; i < sentence.length; i++) {
-            ruleIndex = NON_TERMINALS.indexOf(sentence[i]);
-            if (ruleIndex !== -1) {
-                rule = NON_TERMINALS[ruleIndex];
+            ruleIndex = NAO_TERMINAIS.indexOf(sentence[i]);
+            if (ruleIndex !== -1 || sentence[i] === EPSILON) {
+                inicial = NAO_TERMINAIS[ruleIndex];
                 break;
             }
+            console.log(ruleIndex, sentence[i]);
         }
         if (ruleIndex === -1) {
             generating = false;
@@ -88,28 +105,25 @@ function randomSentence() {
     return sentence;
 }
 
-/**
- * Realiza um passo da análise sintática
- */
-function makeStep() {
+function passo() {
 
     // cria a linha da tabela de derivação
     var debugRow = {
         iter: iteration,
-        stack: stack.join(''),
-        input: input.join('')
+        pilhadeAnalise: pilhadeAnalise.join(''),
+        entradadeDados: entradadeDados.join('')
     };
 
     // topo da pilha
-    var topStack = stack[stack.length - 1];
+    var topStack = pilhadeAnalise[pilhadeAnalise.length - 1];
 
     // simbolo atual na entrada
-    var inSimbol = input[0];
+    var inSimbol = entradadeDados[0];
 
     // se o topo for o final da pilha e o simbolo de entrada também, foi aceito
-    if (topStack === END_OF_STACK && inSimbol === END_OF_STACK) {
-        analising = false;
-        accepted = true;
+    if (topStack === FIM_DE_PILHA && inSimbol === FIM_DE_PILHA) {
+        ehAnalisar = false;
+        ehGramativaAceita = true;
         debugRow.action = 'Aceito em ' + iteration + ' iterações';
 
         $('#btn-verify-step').removeClass('active');
@@ -117,18 +131,18 @@ function makeStep() {
     } else {
         // se o topo da pilha for igual ao simbolo da entrada, lê a entrada
         if (topStack === inSimbol) {
-            debugRow.action = 'Lê \'' + inSimbol + '\'';
-            stack.pop();
-            input.shift();
+            debugRow.action = 'Ler → ' + inSimbol;
+            pilhadeAnalise.pop();
+            entradadeDados.shift();
 
             // se existir uma entrada equivalente ao simbolo de entrada ao 
             // não-terminal no topo da pilha na tabela de Parsing
         } else if (
-            parsingTable[topStack] !== undefined &&
-            parsingTable[topStack][inSimbol] !== undefined
+            tabelaParser[topStack] !== undefined &&
+            tabelaParser[topStack][inSimbol] !== undefined
         ) {
             // produção em array da tabela de parsing para o simbolo terminal da entrada
-            var toStack = parsingTable[topStack][inSimbol];
+            var toStack = tabelaParser[topStack][inSimbol];
             // produção em formato de string
             var production = toStack.join('');
 
@@ -136,19 +150,19 @@ function makeStep() {
             debugRow.action = topStack + ' → ' + production;
 
             // remove o topo da pilha
-            stack.pop();
+            pilhadeAnalise.pop();
 
             // se a produção não for vazia (epsilon), coloca seu conteúdo da pilha
             if (production !== EPSILON) {
                 for (var j = toStack.length - 1; j >= 0; j--) {
-                    stack.push(toStack[j])
+                    pilhadeAnalise.push(toStack[j])
                 }
             }
 
             // se a análise não for válida, finaliza a mesma com erro
         } else {
-            analising = false;
-            accepted = false;
+            ehAnalisar = false;
+            ehGramativaAceita = false;
             debugRow.action = 'Erro em ' + iteration + ' iterações';
             
             $('#btn-verify-step').removeClass('active');
@@ -157,78 +171,74 @@ function makeStep() {
     }
     // incrementa a iteração e coloca a linha gerada na tabela de derivação
     iteration++;
-    debugTable.push(debugRow);
+    tabeladeDerivacao.push(debugRow);
 }
 
-/**
- * Realiza a análise sintática em um passo
- * 
- * @param {string} inputString 
- */
-function oneStepAnalisis(inputString) {
+function analiseDireta(inputString) {
 
     // limpa as variáveis globais
-    cleanGlobals();
+    reinicia();
 
     // transforma a entrada em array
-    input = (inputString + '$').split('');
+    entradadeDados = (inputString + '$').split('');
 
     // executa todos os passos até o final
-    while (analising) {
-        makeStep();
+    while (ehAnalisar) {
+        passo();
     }
 
-    return analisisState();
+    return estadodaAnalise();
 }
 
 var savedInput = '';
 
-function stepByStepAnalisis(inputString) {
-    if (inputString !== savedInput || !analising) {
-        cleanGlobals();
+function analisePassoaPasso(inputString) {
+    if (inputString !== savedInput || !ehAnalisar) {
+        reinicia();
         savedInput = inputString;
-        input = (inputString + '$').split('');
+        entradadeDados = (inputString + '$').split('');
     }
 
-    makeStep();
+    passo();
 
-    return analisisState();
+    return estadodaAnalise();
 }
 
-function writeDebugTable(table) {
-    if (table === undefined) {
-        table = debugTable;
+function insereDadosnaTabela(tabela) {
+    if (tabela === undefined) {
+        tabela = tabeladeDerivacao;
     }
 
     $htmlTable = $('.debug-table > tbody');
     $htmlTable.html('');
 
-    for (var i = 0; i < table.length; i++) {
+    for (var i = 0; i < tabela.length; i++) {
         $row = $('<tr>');
-        $row.append('<td>' + table[i].stack + '</td>');
-        $row.append('<td>' + table[i].input + '</td>');
-        $row.append('<td>' + table[i].action + '</td>');
+        $row.append('<td>' + tabela[i].pilhadeAnalise + '</td>');
+        $row.append('<td>' + tabela[i].entradadeDados + '</td>');
+        $row.append('<td>' + tabela[i].action + '</td>');
         $htmlTable.append($row);
     }
 }
 
-function acceptanceFeedback(accepted) {
+function exibeResultado(ehGramativaAceita) {
     $('#input-sentence').removeClass('is-invalid is-valid');
-    if (accepted === true) {
-        $('#input-sentence').addClass('is-valid');
-    } else if (accepted === false) {
-        $('#input-sentence').addClass('is-invalid');
-    }
-}
+    (ehGramativaAceita === true) ? $('#input-sentence').addClass('is-valid') : 
+    (ehGramativaAceita === false) ? $('#input-sentence').addClass('is-invalid') : '';
+ }
 
-function updateView(analisis) {
-    if (analisis === undefined) {
+function exibeDados(exibe) {
+
+    if (exibe === undefined) {
+        exibeResultado(undefined);
         setTimeout(() => {
-            acceptanceFeedback(null);
-            writeDebugTable([]);
-        }, 1000);
+
+            exibeResultado(null);
+            insereDadosnaTabela([]);
+        }, 800);
     } else {
-        acceptanceFeedback(analisis.accepted);
-        writeDebugTable(analisis.table);
+
+        insereDadosnaTabela(exibe.table);
+        exibeResultado(exibe.ehGramativaAceita);
     }
 }

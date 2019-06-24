@@ -18,7 +18,7 @@ input.is-valid {
 }
 
 .bg-color-padrao{
-    background-color: #1B36EB;
+    background-color: rgb(55, 58, 218);
     color:white;
     
 }
@@ -33,6 +33,10 @@ input.is-valid {
     color:white;
     text-align:center;
     
+}
+
+.color{
+    background-color: rgb(118, 121, 122);
 }
 
 .border-hr1{

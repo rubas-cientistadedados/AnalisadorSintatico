@@ -1,11 +1,11 @@
-$(document).ready(function () {
+$(document).ready( () => {
 
     /**
      * Limpa os dados do analisador caso a sentença mude
      */
-    $('#input-sentence').on('keyup', function() {
-        cleanGlobals();
-        updateView();
+    $('#input-sentence').on('keyup', () => {
+        reinicia();
+        exibeDados();
         
         resultado.removeClass('disabled');
         resultado.addClass('active');
@@ -14,11 +14,11 @@ $(document).ready(function () {
     /**
      * Limpa os dados do analisador e da view
      */
-    $('#btn-clean').click(function() {
+    $('#btn-clean').click( () => {
         $('#input-sentence').val('').focus();
         $('html, body').css('transition-delay', '0s, 5s');
-        cleanGlobals();
-        updateView();
+        reinicia();
+        exibeDados();
 
         resultado.removeClass('disabled');
         resultado.addClass('active');        
@@ -28,10 +28,11 @@ $(document).ready(function () {
      * Análisa a sentença na entrada em um passo
      */
 
-    $('#btn-verify-sentence').click(function() {
-        var analisis = oneStepAnalisis($('#input-sentence').val());
-        updateView(analisis);
+    $('#btn-verify-sentence').click(() => {
+
+        exibeDados(analiseDireta($('#input-sentence').val()));
         $("html, body").animate({
+
             scrollTop: $(document).height()
         }, 7000);
 
@@ -48,17 +49,17 @@ $(document).ready(function () {
     $('#btn-verify-step').click(() => {
         
         if(!resultado.hasClass('disabled')){
-            var analisis = stepByStepAnalisis($('#input-sentence').val());
-            updateView(analisis);
+            exibeDados(analisePassoaPasso($('#input-sentence').val()));
             $("html, body").animate({
+                
                 scrollTop: $(document).height()
             }, 1000);
         }
     });
 
-    $('#btn-generate').click(function() {
+    $('#btn-generate').click( () => {
         $('#btn-clean').click();
-        var sentence = randomSentence();
+        var sentence = geraSentenca();
         $('#input-sentence').val(sentence);
     });
     resultado.removeClass('disabled');
@@ -70,11 +71,11 @@ function tog(v){
     return v ? 'addClass' : 'removeClass';
 } 
 
-$(document).on('input', '.clearable', function(){
+$(document).on('input', '.clearable', () => {
     $(this)[tog(this.value)]('x');
-}).on('mousemove', '.x', function( e ){
+}).on('mousemove', '.x',  e => {
     $(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
-}).on('touchstart click', '.onX', function( ev ){
+}).on('touchstart click', '.onX', ev => {
     ev.preventDefault();
     $(this).removeClass('x onX').val('').change();
 });
