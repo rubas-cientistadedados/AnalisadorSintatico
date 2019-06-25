@@ -13,14 +13,12 @@ input.is-valid {
     color: #28a745;
 }
 
-.not-margin-top{
+.not-margin-top, .bg-style-table{
     margin-top: 0;
 }
 
-.bg-color-padrao{
-    background-color: rgb(55, 58, 218);
+.bg-color-padrao, .bg-style-table, .bg-color-padrao-1 {
     color:white;
-    
 }
 
 .bg-color-padrao:hover, .bg-color-padrao:focus{
@@ -29,34 +27,33 @@ input.is-valid {
 }
 
 .bg-style-table{
-    background-color:#1b5debfa;
-    color:white;
     text-align:center;
-    
+    border-radius: 15px;
 }
 
-.color{
-    background-color: rgb(118, 121, 122);
-}
-
-.border-hr1{
-    border-color:#1B36EB;
-    margin-bottom: 3%;
-    width: 86%;
-    margin-left: 0;
-   
-}
 
 .border-hr2{
-    border-color:#19a2b8;
+    border-color:rgb(8, 199, 34);
     margin-top: 1%;
+    height: 3px;
+    box-shadow:  4px 11px 11px -5px rgba(8, 199, 34, 0.7);
 }
 
 .navbar{
-    background-color: #1B36EB;
     height: 90px;
     width: 100%;
-    box-shadow:  0px 11px 11px -3px rgba(27, 54, 235, 0.38);
+    box-shadow:  7px 7px 7px 5px rgba(8, 199, 34, 0.26)
+}
+
+.bg-color-padrao{
+    background-color: rgb(57, 135, 187);
+}
+
+.bg-color-padrao-1 {
+    background-color: rgb(71, 209, 89);
+}
+.color, .bg-style-table, .navbar, .border-hr2{
+    background-color: rgb(10, 136, 27);
 }
 
 .lugar{
@@ -67,18 +64,12 @@ input.is-valid {
    margin-top: 7%;
 }
 
-.footer .navbar{
-    background-color: #19a2b8;
-}
-
-.footer {
-    position:fixed;
-    bottom:0;
-    width:100%;
-}
-
 .debug-table tbody{
     margin-bottom: 20px;
+}
+
+.font{
+    font-family: 'Courier New';
 }
 
 .row {
@@ -96,6 +87,7 @@ h1 {
 
 table tbody tr td {
     text-align: center;
+    font-family: 'Courier New';
 }
 
 table tbody tr {

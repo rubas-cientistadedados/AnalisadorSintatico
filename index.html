@@ -26,7 +26,7 @@
                 <div class=" quadro col-sm-4">
                     <h4>GRAMÁTICA</h4>
                     <hr class="border-hr2"> 
-                    <div style="font-family: monospace">
+                    <div class="font">
                         S ::= Ae | aD
                         <br> A ::= cC | dD | b
                         <br> B ::= a&nbsp; | cCb| &epsilon;
@@ -38,7 +38,7 @@
                 <div class=" quadro col-sm-4">
                     <h4>FIRST</h4>
                     <hr class="border-hr2"> 
-                    <div style="font-family: monospace">
+                    <div class="font">
                         S ::= { a, b, c, d }
                         <br> A ::= { b, c, d }
                         <br> B ::= { a, c, &epsilon; }
@@ -49,7 +49,7 @@
                 <div class=" quadro col-sm-4">
                     <h4>FOLLOW</h4>
                     <hr class="border-hr2"> 
-                    <div style="font-family: monospace">
+                    <div class="font">
                         S ::= { $ }
                         <br> A ::= { a, c, e }
                         <br> B ::= { d }
@@ -101,7 +101,7 @@
                             <td>B → cCb</td>
                             <td>B → &epsilon;</td>
                             <td>&ndash;</td>
-                            <td>B → &epsilon;</td>
+                            <td>&ndash;</td>
                         </tr>
                         <tr>
                             <th class="bg-style-table">C</th>
@@ -134,10 +134,10 @@
                 <div class="col-11 offset-md-1 center">
                     <div class="form-inline form-group-sm center">
                         <div class="input-group col-10">
-                            <input type="text" class="form-control rounded-pill clearable" placeholder="Digite a gramática" id="input-sentence">
+                            <input type="text" class="form-control rounded-pill clearable" placeholder="Digite a gramática" id="sentenca">
                         <div>
-                        <button class="btn bg-color-padrao ml-3 rounded-pill" type="button" id="btn-verify-sentence">Verificar</button>    
-                        <button class="btn btn-info ml-2 rounded-pill" type="button" id="btn-generate">Gerar</button>
+                        <button class="btn bg-color-padrao ml-3 rounded-pill" type="button" id="verifica">Verificar</button>    
+                        <button class="btn bg-color-padrao-1 ml-2 rounded-pill" type="button" id="gera">Gerar</button>
                     </div>
                 </div>
 
@@ -156,8 +156,8 @@
                     </table>
                 </div>
                 <div class="col-11 mt-3">
-                    <button class="btn ml-2 float-right bg-color-padrao rounded-pill" type="button" id="btn-verify-step">Passo a Passo</button>
-                    <button class="btn ml-2 float-right btn-info rounded-pill" type="button" id="btn-clean" title="Limpar"> Reiniciar</button>
+                    <button class="btn ml-2 float-right bg-color-padrao rounded-pill" type="button" id="passoapasso">Passo a Passo</button>
+                    <button class="btn ml-2 float-right bg-color-padrao-1 rounded-pill" type="button" id="reinicia" title="Limpar"> Reiniciar</button>
                 </div>
             </div>
         </div>

@@ -1,9 +1,6 @@
 $(document).ready( () => {
-
-    /**
-     * Limpa os dados do analisador caso a sentença mude
-     */
-    $('#input-sentence').on('keyup', () => {
+    
+    $('#sentenca').on('keyup', () => {
         reinicia();
         exibeDados();
         
@@ -11,11 +8,8 @@ $(document).ready( () => {
         resultado.addClass('active');
     });
 
-    /**
-     * Limpa os dados do analisador e da view
-     */
-    $('#btn-clean').click( () => {
-        $('#input-sentence').val('').focus();
+  $('#reinicia').click( () => {
+        $('#sentenca').val('').focus();
         $('html, body').css('transition-delay', '0s, 5s');
         reinicia();
         exibeDados();
@@ -24,13 +18,9 @@ $(document).ready( () => {
         resultado.addClass('active');        
     });
 
-    /**
-     * Análisa a sentença na entrada em um passo
-     */
+    $('#verifica').click(() => {
 
-    $('#btn-verify-sentence').click(() => {
-
-        exibeDados(analiseDireta($('#input-sentence').val()));
+        exibeDados(analiseDireta($('#sentenca').val()));
         $("html, body").animate({
 
             scrollTop: $(document).height()
@@ -40,16 +30,13 @@ $(document).ready( () => {
         resultado.addClass('disabled');
     });
 
-    /**
-     * Realiza a analise passo à passo
-     */
-    let resultado = $('#btn-verify-step'); 
+    let resultado = $('#passoapasso'); 
     resultado.addClass('active');
 
-    $('#btn-verify-step').click(() => {
+    $('#passoapasso').click(() => {
         
         if(!resultado.hasClass('disabled')){
-            exibeDados(analisePassoaPasso($('#input-sentence').val()));
+            exibeDados(analisePassoaPasso($('#sentenca').val()));
             $("html, body").animate({
                 
                 scrollTop: $(document).height()
@@ -57,10 +44,10 @@ $(document).ready( () => {
         }
     });
 
-    $('#btn-generate').click( () => {
-        $('#btn-clean').click();
+    $('#gera').click( () => {
+        $('#reinicia').click();
         var sentence = geraSentenca();
-        $('#input-sentence').val(sentence);
+        $('#sentenca').val(sentence);
     });
     resultado.removeClass('disabled');
     resultado.addClass('active');
